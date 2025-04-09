@@ -1,0 +1,2 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/henrydunn/Documents/GitHub/wave-vis/media/videos/main/1080p60/partial_movie_files/GerstnerWave/3977891868_3621133595_2233659257.mp4'
