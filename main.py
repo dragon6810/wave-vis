@@ -8,9 +8,10 @@ class GerstnerWave(Scene):
         dotspace = 1/2
 
         tracker = ValueTracker(0)
+        self.add(tracker)
         dots = VGroup()
 
-        wavelen = 16
+        wavelen = 8
         height = 1
 
         for ix in range(nx):
@@ -19,7 +20,8 @@ class GerstnerWave(Scene):
                 py = (iy - ny) * dotspace
 
                 dot = Dot(radius=0.1)
-                dot.move_to([wavegetx(px, py, 0, wavelen), wavegety(px, py, 0, wavelen), 0])
+                offs = wavegetoffset(px, py, 0, wavelen, height)
+                dot.move_to([offs[0] + px, offs[1] + py, 0])
                 depth = -py / (ny * dotspace)
                 color = interpolate_color(RED, BLUE, depth)
                 dot.set_color(color)
@@ -27,7 +29,8 @@ class GerstnerWave(Scene):
                 # Gerstner-style wave offset in y
                 def updater(d, px=px, py=py, wavelen=wavelen, height=height):
                     t = tracker.get_value()
-                    d.move_to([wavegetx(px, py, t, wavelen, height), wavegety(px, py, t, wavelen, height), 0])
+                    offs = wavegetoffset(px, py, t, wavelen, height)
+                    d.move_to([offs[0] + px, offs[1] + py, 0])
 
                 dot.add_updater(updater)
                 dots.add(dot)
@@ -38,16 +41,28 @@ class GerstnerWave(Scene):
         g = 9.8
         c = np.sqrt(g / k)
         T = 2 * np.pi / (k * c)
-        self.play(tracker.animate.set_value(T), run_time=T, rate_func=linear)
-    
-def wavegetx(a, b, t, wavelength, A=0.1):
-    k = 2 * np.pi / wavelength
-    g = 9.8
-    c = np.sqrt(g / k)
-    return a + A * np.exp(-k * abs(b)) * np.sin(k * (a + c * t))
 
-def wavegety(a, b, t, wavelength, A=0.1):
+        def update_tracker(mob, dt):
+            current = mob.get_value()
+            if current < T:
+                mob.set_value(min(current + dt, T))
+
+        tracker.add_updater(update_tracker)
+
+        self.wait(T)
+        tracker.remove_updater(update_tracker)
+
+        #self.play(tracker.animate.set_value(T), run_time=T, rate_func=linear)
+
+        ix = nx / 2
+        iy = ny / 2
+        px = (ix - nx / 2) * dotspace
+        py = (iy - ny) * dotspace
+
+def wavegetoffset(a, b, t, wavelength, A=1):
     k = 2 * np.pi / wavelength
     g = 9.8
     c = np.sqrt(g / k)
-    return b - A * np.exp(-k * abs(b)) * np.cos(k * (a + c * t))
+    x =  A * np.exp(-k * abs(b)) * np.sin(k * (a + c * t))
+    y = -A * np.exp(-k * abs(b)) * np.cos(k * (a + c * t))
+    return [x, y]
