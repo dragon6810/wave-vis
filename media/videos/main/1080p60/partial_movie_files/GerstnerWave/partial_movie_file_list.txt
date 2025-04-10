@@ -1,2 +1,6 @@
 # This file is used internally by FFMPEG.
-file 'file:/Users/henrydunn/Documents/GitHub/wave-vis/media/videos/main/1080p60/partial_movie_files/GerstnerWave/3977891868_445260657_949545343.mp4'
+file 'file:/Users/henrydunn/Documents/GitHub/wave-vis/media/videos/main/1080p60/partial_movie_files/GerstnerWave/3977891868_445260657_3596850776.mp4'
+file 'file:/Users/henrydunn/Documents/GitHub/wave-vis/media/videos/main/1080p60/partial_movie_files/GerstnerWave/2852726489_2913864862_1089402597.mp4'
+file 'file:/Users/henrydunn/Documents/GitHub/wave-vis/media/videos/main/1080p60/partial_movie_files/GerstnerWave/2852726489_2567665457_504891337.mp4'
+file 'file:/Users/henrydunn/Documents/GitHub/wave-vis/media/videos/main/1080p60/partial_movie_files/GerstnerWave/2852726489_1680748043_1116855812.mp4'
+file 'file:/Users/henrydunn/Documents/GitHub/wave-vis/media/videos/main/1080p60/partial_movie_files/GerstnerWave/2852726489_989931776_837851231.mp4'
